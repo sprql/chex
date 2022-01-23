@@ -22,31 +22,27 @@ defimpl Inspect, for: Chex.Game do
   Output a string in the unicode notation shown below.
 
   iex> Chex.Game.new
-    8 [♜][♞][♝][♛][♚][♝][♞][♜]
-    7 [♟][♟][♟][♟][♟][♟][♟][♟]
-    6 [ ][ ][ ][ ][ ][ ][ ][ ]
-    5 [ ][ ][ ][ ][ ][ ][ ][ ]
-    4 [ ][ ][ ][ ][ ][ ][ ][ ]
-    3 [ ][ ][ ][ ][ ][ ][ ][ ]
-    2 [♙][♙][♙][♙][♙][♙][♙][♙]
-    1 [♖][♘][♗][♕][♔][♗][♘][♖]
-       a  b  c  d  e  f  g  h
+    8  ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜
+    7  ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟
+    6  . . . . . . . .
+    5  . . . . . . . .
+    4  . . . . . . . .
+    3  . . . . . . . .
+    2  ♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙
+    1  ♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖
+       a b c d e f g h
   """
   def inspect(game, opts) do
     for rank <- @ranks, file <- @files do
-      piece =
-        case Map.get(game.board, {file, rank}) do
-          {material, color, _} -> {color, material}
-          _ -> nil
-        end
-
-      unicode = Map.get(@unicode_map, piece)
-      "[#{unicode}]"
+      case Map.get(game.board, {file, rank}) do
+        {material, color, _} -> Map.get(@unicode_map, {color, material})
+        _ -> "."
+      end
     end
     |> Enum.chunk_every(8)
     |> Enum.with_index()
-    |> Enum.map(fn {row, rank} -> ["#{8 - rank} " | row] |> Enum.join("") end)
-    |> Enum.concat(["   a  b  c  d  e  f  g  h"])
+    |> Enum.map(fn {row, rank} -> ["#{8 - rank}" | row] |> Enum.join(" ") end)
+    |> Enum.concat(["  a b c d e f g h"])
     |> Enum.join("\n")
   end
 end
