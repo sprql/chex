@@ -1,4 +1,4 @@
-defimpl Inspect, for: Chex.Game do
+defimpl Inspect, for: Chex.Board do
   @unicode_map %{
     {:white, :pawn} => "♙",
     {:white, :rook} => "♖",
@@ -21,7 +21,7 @@ defimpl Inspect, for: Chex.Game do
   @doc """
   Output a string in the unicode notation shown below.
 
-  iex> Chex.Game.new
+  iex> Chex.Board.new
     8  ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜
     7  ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟
     6  . . . . . . . .
@@ -32,9 +32,9 @@ defimpl Inspect, for: Chex.Game do
     1  ♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖
        a b c d e f g h
   """
-  def inspect(game, opts) do
-    for rank <- @ranks, file <- @files do
-      case Map.get(game.board, {file, rank}) do
+  def inspect(board, opts) do
+    for rank <- @ranks, file <- Chex.Board.files do
+      case Map.get(board, {file, rank}) do
         {material, color, _} -> Map.get(@unicode_map, {color, material})
         _ -> "."
       end
