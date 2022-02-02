@@ -4,7 +4,7 @@ defmodule Chex.Board do
   @type value :: {Chex.name(), Chex.color(), Chex.square()}
 
   @files [:a, :b, :c, :d, :e, :f, :g, :h]
-  # @ranks 1..8
+  @ranks 1..8
 
   @starting_position %{
     {:a, 1} => {:rook, :white, {:a, 1}},
@@ -94,6 +94,7 @@ defmodule Chex.Board do
   def starting_position, do: @starting_position
 
   def files, do: @files
+  def ranks, do: @ranks
 
   def file_index(file), do: Enum.find_index(@files, fn x -> x == file end)
 
