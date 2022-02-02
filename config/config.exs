@@ -1,4 +1,4 @@
-use Mix.Config
+use Config
 
 # Configures Elixir's Logger
 config :logger, :console,
