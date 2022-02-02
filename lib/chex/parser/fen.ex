@@ -65,6 +65,10 @@ defmodule Chex.Parser.FEN do
      }}
   end
 
+  def parse_board(fen) when is_binary(fen) do
+    {:ok, decode_board(fen)}
+  end
+
   def serialize(%Game{
         board: bd,
         active_color: ac,
