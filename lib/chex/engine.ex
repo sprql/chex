@@ -25,6 +25,7 @@ defmodule Chex.Engine do
         :binary
       ])
 
+    Port.monitor(port)
     Port.command(port, "uci\n")
     state = Map.put(state, :port, port)
 
