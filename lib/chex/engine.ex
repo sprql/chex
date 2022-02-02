@@ -95,7 +95,7 @@ defmodule Chex.Engine do
       |> Map.put(:status, :thinking)
       |> Map.put(:respond_to, from)
 
-    Port.command(port, "position fen #{fen}\ngo\n")
+    Port.command(port, "position fen #{fen}\ngo movetime 500\n")
 
     {:noreply, state}
   end
